@@ -1,0 +1,6 @@
+h2. Notes on Clojure
+
+Taken while learning the language from various resources such as (but not limited to):
+
+* Programming Clojure
+* Joy of Clojure
