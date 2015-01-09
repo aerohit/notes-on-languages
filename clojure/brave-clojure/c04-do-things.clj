@@ -55,3 +55,52 @@
 
 ; 'hash-map' function could be used to create a map
 (hash-map :a 1 :b 2)
+
+;### Vectors
+(def blasphemous-vector [3 2 1])
+
+(get blasphemous-vector 0)
+(blasphemous-vector 0)
+
+; vectors could be created with the **vector** function
+(vector "creepy" "full" "moon")
+
+; cong adds to the end of the vector
+(conj [1 2 3] 4)
+
+;### Lists
+(def blasphemous-list '(1 2 3 4))
+
+; **get** doesn't work for lists
+(get blasphemous-list 0)
+
+; **nth** works, but the performance is slow
+(nth blasphemous-list 0)
+
+; lists could be created with the **list** function
+(list 1 2 3)
+
+; conj adds to the beginning of the list
+(conj blasphemous-list 5)
+
+;### Sets
+(def blasphemous-set #{:a :b :c})
+
+(conj blasphemous-set :c)
+
+; to check whether a value exists in a set
+(get blasphemous-set :a)
+(get blasphemous-set :d)
+
+(:a blasphemous-set)
+
+; a set could be created from a vector or a list by **set** function
+(set [3 3 3 4 4])
+
+; an unobvious use is to check whether a value exists in a collection
+(get (set [3 3 3 4 4]) 3)
+(get (set [3 3 3 4 4]) 5)
+
+; **hash-set** and **sorted-set** could be used to create sets from values
+(hash-set 1 1 3 1 2)
+(sorted-set :b :c :a :1)
