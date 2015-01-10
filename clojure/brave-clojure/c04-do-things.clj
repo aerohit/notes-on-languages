@@ -104,3 +104,90 @@
 ; **hash-set** and **sorted-set** could be used to create sets from values
 (hash-set 1 1 3 1 2)
 (sorted-set :b :c :a :1)
+
+
+;### Quoting
+; quoting a symbol tells clojure to use the symbol itself as a data structure
+(prn 'failed-protagonist-names)
+(eval 'failed-protagonist-names)
+(first '(failed-protagonist-names 0 1))
+(second '(failed-protagonist-names 0 1))
+
+; ??? Say what?
+; "Function call" is just another term for an expression where the operator is a
+; function expression. A function expression is just an expression which returns
+; a function.
+
+; eg of a function expression
+(or + -)
+((or + -) 1 2 3)
+; 'or' returns the first truthy or last falsey value, 'and' returns the first falsey or
+; last truthy value
+((and (= 1 1) +) 1 2 3)
+((first [+ 0]) 1 2 3)
+
+; even though map is called on a vector/set, the returned value is a list
+(map inc [0 1 2 3])
+(map inc #{0 1 2 3})
+
+;### Defining functions
+; multi-arity functions
+(defn x-chop
+  "Describe the kind of chop"
+  ([name chop-type]
+   (str "I " chop-type " chop " name "! Take that!"))
+  ([name]
+   (x-chop name "karate")))
+
+(x-chop "Kanye")
+
+; variable arity function
+(defn codger-communication [whippersnapper]
+  (str "Get off my lawn, " whippersnapper "!!!"))
+
+(defn codger [& whippersnappers]
+  (map codger-communication whippersnappers))
+
+(codger "Billy" "Anne-Marie")
+
+(defn favorite-things [name & things]
+  (str "Hi, " name ", here are my favorite things: " (clojure.string/join ", " things)))
+
+(favorite-things "Doreen" "gum" "shoes" "kara-te")
+
+;### Destructuring
+; Destructuring lists and vectors
+(defn my-first [[first-thing]]
+  first-thing)
+
+(my-first [1 2 3])
+
+(defn chooser [[first-choice second-choice & other-choices]]
+  (prn (str "Your first choice is: " first-choice))
+  (prn (str "Your second choice is: " second-choice))
+  (prn (str "And your other choices are " (clojure.string/join ", " other-choices))))
+
+(chooser ["Marmalade" "Handsome Jack" "Pigpen" "Aquaman"])
+
+; Destructuring maps
+(defn announce-treasure-location [{lat :lat lng :lng}]
+  (prn (str "Latitude " lat ", Longitude " lng)))
+
+(announce-treasure-location {:lat 28.22 :lng 81.33})
+
+; the above function could be written with a simpler syntax
+(defn announce-treasure-location [{:keys [lat lng] :as treasure-location}]
+  (prn (str "Latitude " lat ", Longitude " lng)))
+
+;### Anonymous functions
+((fn [x] (* x 8)) 4)
+(#(* % 8) 4)
+(#(str %1 " and " %2) "corn bread" "butter beans")
+(#(str %1 ", " %2 " and " %&) :corn-bread :butter-beans :grapes)
+
+; returning functions
+(defn inc-maker [inc-by]
+  #(+ inc-by %))
+
+(def inc3 (inc-maker 3))
+(inc3 5)
