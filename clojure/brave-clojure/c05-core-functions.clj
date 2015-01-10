@@ -147,3 +147,62 @@
   ([n] (cons n (lazy-seq (even-numbers (+ n 2))))))
 
 (take 10 (even-numbers))
+
+
+;### The collection abstraction
+(count [])
+(every? even? [2 4 6])
+(empty? [])
+
+(into {} (map identity {:key "val"}))
+(into #{} (map identity [:garlic-clove :garlic-clove]))
+(into {:favorite-emotion "gloomy"} [[:sunlight-reaction "Glitter!"]])
+(into ["cherry"] '("pine" "spruce"))
+(into {:favorite-animal "kitty"} {:least-favorite-smell "dog" :color "blue"})
+
+(conj [0] [1])
+(conj [0] 1 2 3)
+(conj {:time "midnight"} [:place "ye olde cemetarium"])
+
+; **conj** and **into** are so similar that one could be defined in terms of the other
+(defn my-conj [target & additions]
+  (into target additions))
+
+(my-conj [0] 1 2 3)
+
+(defn my-into [target additions]
+  (apply conj target additions))
+(my-into [0] [1 2 3])
+
+(max 2 3 4)
+(max [2 3 4])
+(apply max [2 3 4])
+
+(def add10 (partial + 10))
+(add10 4)
+
+(def add-missing-element
+  (partial conj ["water" "earth" "air"]))
+(add-missing-element "unobtainium" "adamantium")
+
+(defn my-partial [partialized-fn & args]
+  (fn [& more-args]
+    (apply partialized-fn (into more-args (reverse args)))))
+
+(def add20 (my-partial + 20))
+(add20 4)
+
+(defn lousy-logger [log-level message]
+  (condp = log-level
+    :warn (clojure.string/lower-case message)
+    :emergency (clojure.string/upper-case message)))
+
+(def warn (partial lousy-logger :warn))
+(warn "Red light ahead")
+
+(defn my-complement [fun]
+  (fn [& args]
+    (not (apply fun args))))
+(def my-pos? (my-complement neg?))
+(my-pos? 1)
+(my-pos? -1)
