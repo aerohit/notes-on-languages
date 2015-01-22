@@ -4,3 +4,21 @@ Taken while learning the language from various resources such as (but not limite
 
 * Programming Clojure
 * Joy of Clojure
+* Clojure for the Brave
+
+h2. Concepts
+
+* Clojure doesn't have tail recursion, use **recur**
+* Referential transparancy
+* In OOP, one of the main purposes of classes is to provide data
+  hiding — something that isn't necessary with immutable data structures
+  in Functional Languages.
+* Referential transparancy allows for memoization.
+
+h2. Skipped sections
+
+**Brave Clojure**
+* Chapter 6  : The peg game.
+* Chapter 10 : Section 4.5
+* Chapter 10 : Section 9.1.3 about Per-Thread Binding
+* Chapter 10 : Section 9.2 about Altering the Var Root
