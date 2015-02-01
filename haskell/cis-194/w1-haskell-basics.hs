@@ -82,7 +82,7 @@ hailstoneSeq 1 = [1]
 hailstoneSeq n = n : hailstoneSeq (hailstone n)
 
 intListLength :: [Integer] -> Integer
-intListLength [] = 0
+intListLength []     = 0
 intListLength (_:xs) = 1 + intListLength xs
 
 sumEveryTwo :: [Integer] -> [Integer]
