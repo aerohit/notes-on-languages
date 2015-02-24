@@ -1,0 +1,14 @@
+h1. Collection of notes for various languages I learn.
+
+Some ideas to organize the notes:
+
+* Create an index page that would provide link to all the notes.
+* Could use a naming scheme like "hello.clj.html".
+* Each file could have some meta-data like what file name to use etc.
+
+
+Some guidelines:
+
+* Write every line of code in the book.
+* Include some kind of explanations with the code.
+* Belive in fast progress.
