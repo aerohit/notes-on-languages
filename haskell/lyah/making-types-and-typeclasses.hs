@@ -45,3 +45,18 @@ data Person = Person { firstName :: String
 
 data Car = Car {company :: String, model :: String, year :: Int} deriving (Show)
 car = Car {company="Ford", model="Mustang", year=1967}
+
+-- Type parameters
+-- 'type constructors' can take types as parameters to produce new types.
+data Maybe' a = Nothing' | Just' a deriving (Show)
+
+data Vector a = Vector a a a deriving (Show)
+
+vplus :: (Num a) => Vector a -> Vector a -> Vector a
+(Vector x1 y1 z1) `vplus` (Vector x2 y2 z2) = Vector (x1+x2) (y1+y2) (z1+z2)
+
+vecMult :: (Num a) => Vector a -> a -> Vector a
+(Vector x y z) `vecMult` n = Vector (x*n) (y*n) (z*n)
+
+scalarMult :: (Num a) => Vector a -> Vector a -> a
+(Vector x1 y1 z1) `scalarMult` (Vector x2 y2 z2) = (x1*x2)+(y1*y2)+(z1*z2)
