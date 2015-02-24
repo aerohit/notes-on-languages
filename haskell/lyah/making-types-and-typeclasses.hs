@@ -7,6 +7,8 @@ module Shapes
 , baseRectangle
 ) where
 
+-- Abstract Data Types
+
 -- 'data' means that we're defining a new data type. The part
 -- before the = denotes the type, which is Bool. The parts
 -- after the = are value constructors.
@@ -30,6 +32,8 @@ baseCircle r = Circle (Point 0 0) r
 
 baseRectangle :: Float -> Float -> Shape
 baseRectangle x y = Rectangle (Point 0 0) (Point x y)
+
+-- Record Syntax
 
 data Person = Person { firstName :: String
                      , lastName :: String
