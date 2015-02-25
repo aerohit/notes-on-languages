@@ -7,6 +7,7 @@ module Shapes
 , baseRectangle
 ) where
 
+import qualified Data.Map
 -- Abstract Data Types
 
 -- 'data' means that we're defining a new data type. The part
@@ -78,3 +79,37 @@ mon      = minBound :: Day
 tue      = succ Monday
 weekdays = [Monday .. Friday]
 alldays  = [minBound .. maxBound] :: [Day]
+
+-- Type synonyms
+
+type Days = [Day]
+alldays'  = [minBound .. maxBound] :: Days
+
+type PhoneNumber = String
+type Name        = String
+type PhoneBook   = [(Name, PhoneNumber)]
+
+phoneBook :: PhoneBook
+phoneBook =
+  [("betty","555-2938")
+  ,("bonnie","452-2928")
+  ,("patsy","493-2928")
+  ,("lucille","205-2928")
+  ,("wendy","939-8282")
+  ,("penny","853-2492")
+  ]
+
+inPhoneBook :: Name -> PhoneNumber -> PhoneBook -> Bool
+inPhoneBook name number book = (name,number) `elem` book
+
+type AssocList k v = [(k, v)]
+
+getKey :: (Eq k) => k -> AssocList k v -> Maybe v
+getKey _ [] = Nothing
+getKey k ((k',v'):kvs) = if (k == k')
+                            then Just v'
+                            else getKey k kvs
+
+-- Partially applied typeclasses
+type IntAssocList v = AssocList Int v
+type IntMap = Data.Map.Map Int
