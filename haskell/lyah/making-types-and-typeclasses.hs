@@ -7,7 +7,7 @@ module Shapes
 , baseRectangle
 ) where
 
-import qualified Data.Map
+import qualified Data.Map as Map
 -- Abstract Data Types
 
 -- 'data' means that we're defining a new data type. The part
@@ -112,4 +112,28 @@ getKey k ((k',v'):kvs) = if (k == k')
 
 -- Partially applied typeclasses
 type IntAssocList v = AssocList Int v
-type IntMap = Data.Map.Map Int
+type IntMap = Map.Map Int
+
+data Either' a b = Left' a | Right' b deriving (Eq, Ord, Show, Read)
+
+data LockerState = Taken | Free deriving (Show, Eq)
+type Code        = String
+type LockerMap   = Map.Map Int (LockerState, Code)
+
+lockerLookup :: Int -> LockerMap -> Either String Code
+lockerLookup lockerNumber map =
+  case Map.lookup lockerNumber map of
+       Nothing -> Left $ "Locker number " ++ show lockerNumber ++ " doesn't exist"
+       Just (state, code) -> if state == Taken
+                                then Left $ "Locker " ++ show lockerNumber ++ " isn't available"
+                                else Right code
+
+lockers :: LockerMap
+lockers = Map.fromList
+    [(100,(Taken,"ZD39I"))
+    ,(101,(Free,"JAH3I"))
+    ,(103,(Free,"IQSA9"))
+    ,(105,(Free,"QOTSA"))
+    ,(109,(Taken,"893JJ"))
+    ,(110,(Taken,"99292"))
+    ]
