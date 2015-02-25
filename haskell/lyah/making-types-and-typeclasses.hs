@@ -137,3 +137,21 @@ lockers = Map.fromList
     ,(109,(Taken,"893JJ"))
     ,(110,(Taken,"99292"))
     ]
+
+-- Recursive data structures
+data List a = Empty | Cons a (List a) deriving (Show, Read, Eq, Ord)
+
+aList = 3 `Cons` (4 `Cons` (5 `Cons` Empty))
+
+-- Defining infix constructors
+infixr 5 :-:
+data List' a = Empty' | a :-: List' a deriving (Show, Read, Ord, Eq)
+
+bList = 3 :-: 4 :-: 5 :-: Empty'
+
+infixr 5 .++
+(.++) :: List' a -> List' a -> List' a
+Empty' .++ ys     = ys
+(x :-: xs) .++ ys = x :-: (xs .++ ys)
+
+bbList = bList .++ bList
