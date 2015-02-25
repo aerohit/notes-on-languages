@@ -12,7 +12,7 @@ module Shapes
 -- 'data' means that we're defining a new data type. The part
 -- before the = denotes the type, which is Bool. The parts
 -- after the = are value constructors.
-data Bool' = True' | False'
+data Bool' = False' | True' deriving (Eq, Ord)
 
 data Point = Point Float Float deriving (Show)
 data Shape = Circle Point Float | Rectangle Point Point deriving (Show)
@@ -48,7 +48,7 @@ car = Car {company="Ford", model="Mustang", year=1967}
 
 -- Type parameters
 -- 'type constructors' can take types as parameters to produce new types.
-data Maybe' a = Nothing' | Just' a deriving (Show)
+data Maybe' a = Nothing' | Just' a deriving (Show, Ord, Eq)
 
 data Vector a = Vector a a a deriving (Show)
 
@@ -70,3 +70,11 @@ scalarMult :: (Num a) => Vector a -> Vector a -> a
 -- signature, such as elem.
 
 mika = read "Person {firstName =\"Michael\", lastName =\"Diamond\", age = 43}" :: Person
+
+data Day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
+           deriving (Eq, Ord, Show, Read, Bounded, Enum)
+
+mon      = minBound :: Day
+tue      = succ Monday
+weekdays = [Monday .. Friday]
+alldays  = [minBound .. maxBound] :: [Day]
