@@ -41,7 +41,7 @@ data Person = Person { firstName :: String
                      , height :: Float
                      , phoneNumber :: String
                      , flavor :: String
-                     } deriving (Show)
+                     } deriving (Show, Read, Eq)
 
 data Car = Car {company :: String, model :: String, year :: Int} deriving (Show)
 car = Car {company="Ford", model="Mustang", year=1967}
@@ -60,3 +60,13 @@ vecMult :: (Num a) => Vector a -> a -> Vector a
 
 scalarMult :: (Num a) => Vector a -> Vector a -> a
 (Vector x1 y1 z1) `scalarMult` (Vector x2 y2 z2) = (x1*x2)+(y1*y2)+(z1*z2)
+
+-- Derived instances
+-- typeclass is a sort of an interface that defines some behavior.
+-- Some examples are: Eq, Ord, Enum, Bounded, Show, Read
+
+-- since Person is now in Eq, we can use it as the a for all
+-- functions that have a class constraint of Eq a in their type
+-- signature, such as elem.
+
+mika = read "Person {firstName =\"Michael\", lastName =\"Diamond\", age = 43}" :: Person
