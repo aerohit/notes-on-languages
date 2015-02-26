@@ -170,3 +170,15 @@ treeInsert x (Node y l r)
     | x == y = Node y l r
     | x < y  = Node y (treeInsert x l) r
     | x > y  = Node y l (treeInsert x r)
+
+
+nums = [8,6,4,1,7,3,5]
+numsTree :: Tree Int
+numsTree = foldr treeInsert EmptyTree nums
+
+treeElem :: (Ord a) => a -> Tree a -> Bool
+treeElem _ EmptyTree = False
+treeElem x (Node y l r)
+  | x == y = True
+  | x < y  = treeElem x l
+  | x > y  = treeElem x r
