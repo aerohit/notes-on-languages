@@ -121,8 +121,8 @@ type Code        = String
 type LockerMap   = Map.Map Int (LockerState, Code)
 
 lockerLookup :: Int -> LockerMap -> Either String Code
-lockerLookup lockerNumber map =
-  case Map.lookup lockerNumber map of
+lockerLookup lockerNumber lockerMap =
+  case Map.lookup lockerNumber lockerMap of
        Nothing -> Left $ "Locker number " ++ show lockerNumber ++ " doesn't exist"
        Just (state, code) -> if state == Taken
                                 then Left $ "Locker " ++ show lockerNumber ++ " isn't available"
@@ -141,12 +141,14 @@ lockers = Map.fromList
 -- Recursive data structures
 data List a = Empty | Cons a (List a) deriving (Show, Read, Eq, Ord)
 
+aList :: List Int
 aList = 3 `Cons` (4 `Cons` (5 `Cons` Empty))
 
 -- Defining infix constructors
 infixr 5 :-:
 data List' a = Empty' | a :-: List' a deriving (Show, Read, Ord, Eq)
 
+bList :: List' Int
 bList = 3 :-: 4 :-: 5 :-: Empty'
 
 infixr 5 .++
