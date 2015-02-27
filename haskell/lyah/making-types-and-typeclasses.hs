@@ -182,3 +182,22 @@ treeElem x (Node y l r)
   | x == y = True
   | x < y  = treeElem x l
   | x > y  = treeElem x r
+
+class Eq' equatable where
+  (.==) :: equatable -> equatable -> Bool
+  (./=) :: equatable -> equatable -> Bool
+  x .== y = not (x ./= y)
+  x ./= y = not (x .== y)
+
+data TrafficLight = Red | Yellow | Green
+
+instance Eq' TrafficLight where
+  Red    .== Red    = True
+  Green  .== Green  = True
+  Yellow .== Yellow = True
+  _      .== _      = False
+
+instance Show TrafficLight where
+  show Red    = "Red Light"
+  show Green  = "Green Light"
+  show Yellow = "Yellow Light"
