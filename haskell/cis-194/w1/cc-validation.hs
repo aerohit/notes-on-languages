@@ -11,15 +11,15 @@ toDigits :: Integer -> [Integer]
 toDigits n = reverse' (toDigitsRev n)
 
 doubleEveryOtherRev :: [Integer] -> [Integer]
-doubleEveryOtherRev [] = []
-doubleEveryOtherRev (x:[]) = [2*x]
+doubleEveryOtherRev []       = []
+doubleEveryOtherRev (x:[])   = [2*x]
 doubleEveryOtherRev (x:y:zs) = 2*x : y : doubleEveryOtherRev zs
 
 doubleEveryOther :: [Integer] -> [Integer]
 doubleEveryOther xs = reverse' (doubleEveryOtherRev (reverse' xs))
 
 sumDigits :: [Integer] -> Integer
-sumDigits [] = 0
+sumDigits []     = 0
 sumDigits (x:xs) = sum (toDigits x) + sumDigits xs
 
 validate :: Integer -> Bool
