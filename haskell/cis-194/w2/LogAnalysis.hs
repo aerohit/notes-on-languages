@@ -29,7 +29,16 @@ build :: [LogMessage] -> MessageTree
 build logmsgs = foldr insert Leaf logmsgs
 
 inOrder :: MessageTree -> [LogMessage]
-inOrder Leaf = []
+inOrder Leaf                  = []
 inOrder (Node left msg right) = inOrder left ++ [msg] ++ inOrder right
 
-{-whatWentWrong :: [LogMessage] -> [String]-}
+isSevereError :: LogMessage -> Bool
+isSevereError (LogMessage (Error level) _ _) = level >= 50
+isSevereError _                              = False
+
+getMessage :: LogMessage -> String
+getMessage (LogMessage _ _ msg) = msg
+getMessage (Unknown msg)        = msg
+
+whatWentWrong :: [LogMessage] -> [String]
+whatWentWrong = map getMessage . inOrder . build . filter isSevereError
