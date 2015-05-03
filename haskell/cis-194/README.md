@@ -10,3 +10,5 @@ Remaining problems:
 
 * W3 exercises 1 and 2
 * W4 exercises - just compare with the assignment
+* W5 exercises - 6
+* W6 and W7
